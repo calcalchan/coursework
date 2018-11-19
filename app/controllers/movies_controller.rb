@@ -7,6 +7,14 @@ class MoviesController < ApplicationController
   end
 
   def show
+    @reviews = Review.where(movie_id: @movie.id).order("created_at DESC")
+
+    if @reviews.blank?
+      @avg_review = 0
+
+    else
+      @avg_review = @reviews.average(:rating).round(2)
+    end
   end
 
   def new
@@ -54,6 +62,14 @@ class MoviesController < ApplicationController
     end
   end
 
+  def search
+      if params[:search].present?
+        @movies = Movie.search(params[:search])
+      else
+        @movies = Movie.all
+      end
+    end
+    
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_movie

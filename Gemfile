@@ -17,6 +17,8 @@ gem 'turbolinks'
 gem 'devise', '~> 4.5'
 gem 'paperclip', '~> 6.1'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+gem 'sdoc', '~> 1.0'
+gem 'searchkick', '~> 3.1', '>= 3.1.2'
 
 group :development, :test do
 

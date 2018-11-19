@@ -3,6 +3,8 @@
      <div class="row">
        <div class="col-md-4">
          <%= image_tag @movie.image.url(:medium) %>
+         <p>Average Ratings: <%= @avg_review %></p>
+         <em><%= "#{@reviews.length} reviews" %></em>
          <div class="table-responsive">
           <table class="table">
             <tbody>
@@ -29,17 +31,42 @@
 
               <tr>
                 <td><strong>Rating:</strong></td>
-                <td><%= @movie.rating %></td>
+                <td><%= @movie.rating %> /10</td>
               </tr>
 
             </tbody>
 
           </table>
+          <%= link_to "Write a Review", new_movie_review_path(@movie), class: "btn btn-primary" %>
         </div>
+      </div>
+      <div class="col-md-7 col-md-offset-1">
+        <h1 class="review_title"><%= @movie.title %></h1>
+        <p><%= @movie.description %></p>
+
+        <% if @reviews.blank? %>
+        <h3>There are no reviews. Be the first to add.!</h3>
+        <%= link_to "Write Review", new_movie_review_path(@movie), class: "btn btn-danger" %>
+        <% else %>
+          <% @reviews.each do |review| %>
+            <div class="reviews">
+              <p><%= review.rating%>/10</p>
+              <p><%= review.comment %></p>
+            </div>
+        <% end %>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
 
-<%= link_to 'Edit', edit_movie_path(@movie) %> |
-<%= link_to 'Back', movies_path %>
+<%= link_to 'Back', movies_path %> |
+
+
+<% if user_signed_in?%>
+
+  <% if @movie.user_id == current_user.id %>
+    <%= link_to 'Edit', edit_movie_path(@movie) %> |
+    <%= link_to 'Delete', movie_path(@movie), method: :delete, data: { confirm: "Are you sure?"} %>
+  <% end %>
+<% end %>

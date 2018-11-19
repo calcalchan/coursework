@@ -1,0 +1,12 @@
+<h2>Editing Review</h2>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', movie_path(@movie) %>
+
+<% if user_signed_in? %>
+  <% if @review.user_id == current_user.id %>
+    <%= link_to "Edit", edit_movie_review_path(@review.movie, @review) %>
+    <%= link_to "Delete", movie_review_path(@review.movie, @review), method: :delete, data: {confirm: "Are you sure?"}%>
+  <% end %>
+<% end %>

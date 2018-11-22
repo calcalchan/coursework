@@ -3,10 +3,16 @@ class MoviesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @movies = Movie.all
-  end
+    if params[:category].blank?
+      @movies = Movie.all.order("created_at DESC")
+    else
+      @category_id = Category.find_by(name: params[:category]).id
+      @movies = Movie.where(:category_id => @category_id).order("created_at DESC")
+    end
 
+  end
   def show
+
     @reviews = Review.where(movie_id: @movie.id).order("created_at DESC")
 
     if @reviews.blank?
@@ -19,14 +25,16 @@ class MoviesController < ApplicationController
 
   def new
     @movie = current_user.movies.build
+    @categories = Category.all.map{ |c| [c.name, c.id]}
   end
 
   def edit
+    @categories = Category.all.map{ |c| [c.name, c.id]}
   end
 
   def create
     @movie = current_user.movies.build(movie_params)
-
+    @movie.category_id = params[:category_id]
     respond_to do |format|
       if @movie.save
         format.html { redirect_to @movie, notice: 'Movie was successfully created.' }
@@ -41,6 +49,7 @@ class MoviesController < ApplicationController
   # PATCH/PUT /movies/1
   # PATCH/PUT /movies/1.json
   def update
+    @movie.category_id = params[:category_id]
     respond_to do |format|
       if @movie.update(movie_params)
         format.html { redirect_to @movie, notice: 'Movie was successfully updated.' }
@@ -69,7 +78,7 @@ class MoviesController < ApplicationController
         @movies = Movie.all
       end
     end
-    
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_movie
@@ -78,6 +87,6 @@ class MoviesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def movie_params
-      params.require(:movie).permit(:title, :description, :movie_length, :director, :rating, :image)
+      params.require(:movie).permit(:title, :description, :movie_length, :director, :rating, :image, :category_id)
     end
 end

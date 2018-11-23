@@ -9,8 +9,9 @@ class MoviesController < ApplicationController
       @category_id = Category.find_by(name: params[:category]).id
       @movies = Movie.where(:category_id => @category_id).order("created_at DESC")
     end
-
   end
+
+
   def show
 
     @reviews = Review.where(movie_id: @movie.id).order("created_at DESC")
@@ -23,18 +24,22 @@ class MoviesController < ApplicationController
     end
   end
 
+
   def new
     @movie = current_user.movies.build
     @categories = Category.order('name ASC').all.map{ |c| [c.name, c.id]}
   end
 
+
   def edit
     @categories = Category.order('name ASC').all.map{ |c| [c.name, c.id]}
   end
 
+
   def create
     @movie = current_user.movies.build(movie_params)
     @movie.category_id = params[:category_id]
+
     respond_to do |format|
       if @movie.save
         format.html { redirect_to @movie, notice: 'Movie was successfully created.' }
@@ -46,8 +51,7 @@ class MoviesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /movies/1
-  # PATCH/PUT /movies/1.json
+
   def update
     @movie.category_id = params[:category_id]
     respond_to do |format|
@@ -61,8 +65,7 @@ class MoviesController < ApplicationController
     end
   end
 
-  # DELETE /movies/1
-  # DELETE /movies/1.json
+
   def destroy
     @movie.destroy
     respond_to do |format|
@@ -80,13 +83,13 @@ class MoviesController < ApplicationController
     end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_movie
       @movie = Movie.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    
     def movie_params
-      params.require(:movie).permit(:title, :description, :movie_length, :director, :rating, :image, :category_id)
+      params.require(:movie).permit(:title, :category_id, :description, :movie_length, :director, :rating, :image)
     end
 end

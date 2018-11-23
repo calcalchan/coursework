@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 2018_11_21_225451) do
     t.bigint "image_file_size"
     t.datetime "image_updated_at"
     t.integer "category_id"
-    t.text "instruction"
   end
 
   create_table "reviews", force: :cascade do |t|

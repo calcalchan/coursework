@@ -1,7 +1,7 @@
 <%= form_for @movie, html: {multipart: true}  do |f| %>
-  <% if movie.errors.any? %>
+  <% if @movie.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
+      <h2><%= pluralize(movie.errors.count, "error") %> erros occured:</h2>
 
       <ul>
       <% movie.errors.full_messages.each do |message| %>
@@ -16,7 +16,8 @@
     <%= f.text_field :title %>
   </div>
 
-    <br><%= select_tag(:category_id, options_for_select(@categories), :prompt => "Select a category") %>
+  <br><%= select_tag(:category_id, options_for_select(@categories), :prompt => "Select Category") %>
+
 
   <div class="field">
     <br><%= f.label :description %><br>

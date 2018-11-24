@@ -1,14 +1,15 @@
 require 'test_helper'
 
-class MoviesControllerTest < ActionDispatch::IntegrationTest
+class MoviesControllerTest < ActionController::TestCase
   setup do
-    @movie = movies(:one)
-  end
+      @movie = movies(:one)
+    end
 
-  test "should get index" do
-    get movies_url
-    assert_response :success
-  end
+    test "should get index" do
+      get :index
+      assert_response :success
+      assert_not_nil assigns(:movies)
+    end
 
   test "should get new" do
     get new_movie_url
@@ -17,7 +18,7 @@ class MoviesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create movie" do
     assert_difference('Movie.count') do
-      post movies_url, params: { movie: { description: @movie.description, director: @movie.director, movie_length: @movie.movie_length, rating: @movie.rating, title: @movie.title } }
+      post movies_url, params: { movie: { description: @movie.description, director: @movie.director, movie_length: @movie.movie_length, rating: @movie.rating, title: @movie.title, category_id: @movie.category_id, image: @movie.image } }
     end
 
     assert_redirected_to movie_url(Movie.last)

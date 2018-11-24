@@ -1,5 +1,5 @@
 <%= form_for @movie, html: {multipart: true}  do |f| %>
-  <% if @movie.errors.any? %>
+  <% if movie.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(movie.errors.count, "error") %> erros occured:</h2>
 

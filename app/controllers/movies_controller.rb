@@ -74,6 +74,7 @@ class MoviesController < ApplicationController
     end
   end
 
+
   def search
       if params[:search].present?
         @movies = Movie.search(params[:search])
@@ -82,13 +83,14 @@ class MoviesController < ApplicationController
       end
     end
 
+
   private
 
     def set_movie
       @movie = Movie.find(params[:id])
     end
 
-    
+
     def movie_params
       params.require(:movie).permit(:title, :category_id, :description, :movie_length, :director, :rating, :image)
     end

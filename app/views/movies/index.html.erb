@@ -8,7 +8,7 @@
 
 <% if @movies.count == 0 %>
 
-  <h1> There are no movies in this category.</h1>
+  <h1> <%= t('movie.category_empty')%></h1>
 
 <% else %>
 <div class="row">

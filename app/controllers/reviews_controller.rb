@@ -12,6 +12,8 @@ class ReviewsController < ApplicationController
   def edit
   end
 
+  #A method to create a review. It also associates the current review id to the
+  #current user and movie.
   def create
     @review = Review.new(review_params)
     @review.user_id = current_user.id

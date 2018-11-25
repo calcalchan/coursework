@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :request_contact]
 
   def index
     if params[:category].blank?
@@ -83,6 +83,20 @@ class MoviesController < ApplicationController
       end
     end
 
+    def request_contact
+      name = params[:name]
+      email = params[:email]
+      message = params[:message]
+
+      if email.blank?
+        flash[:alert] = I18n.t('request_contact.no_email')
+
+      else
+        flash[:notice] = I18n.t('request_contact.email_sent')
+
+    end
+      redirect_to movies_path
+  end
 
   private
 

@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     end
     resources :reviews, except: [:show, :index]
   end
-
+  #For contact page and email
+  get 'contact', to: 'movies#contact'
+  post 'request_contact', to: 'movies#request_contact'
   #Setting the index page as root page
   root'movies#index'
 end

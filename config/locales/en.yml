@@ -31,3 +31,12 @@
 
 en:
   hello: "Hello world"
+  name: "Name:"
+  enter_name: Enter your name
+  email: "Email:"
+  enter_email: Enter your email addres
+  message: "Message:"
+  enter_message: Enter message here
+  request_contact:
+    no_email: You must enter an valid email address.
+    email_sent: Thank you for your email.

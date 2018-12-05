@@ -1,16 +1,16 @@
 require 'test_helper'
 
-class MoviesControllerTest < ActionController::TestCase
+class ReviewsControllerTest < ActionDispatch::IntegrationTest
   setup do
       @movie = movies(:one)
     end
 
-  test "should get index" do
-    get :index
+  test "should get home" do
+    get root_url
     assert_response :sucess
   end
 
-  test "should get new" do
+  test "should get new movie" do
     get new_movie_url
     assert_response :success
   end

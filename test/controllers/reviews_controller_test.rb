@@ -10,7 +10,7 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get new" do
+  test "should get new review" do
     get new_review_url
     assert_response :success
   end
@@ -28,21 +28,5 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get edit" do
-    get edit_review_url(@review)
-    assert_response :success
-  end
-
-  test "should update review" do
-    patch review_url(@review), params: { review: { comment: @review.comment, rating: @review.rating } }
-    assert_redirected_to review_url(@review)
-  end
-
-  test "should destroy review" do
-    assert_difference('Review.count', -1) do
-      delete review_url(@review)
-    end
-
-    assert_redirected_to reviews_url
-  end
+  
 end

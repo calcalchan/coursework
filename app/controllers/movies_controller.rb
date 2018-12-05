@@ -32,6 +32,7 @@ class MoviesController < ApplicationController
   end
 
 
+  
   def new
     @movie = current_user.movies.build
     @categories = Category.order('name ASC').all.map{ |c| [c.name, c.id]}
@@ -42,7 +43,8 @@ class MoviesController < ApplicationController
     @categories = Category.order('name ASC').all.map{ |c| [c.name, c.id]}
   end
 
-  #Method to create a movie.
+
+  #Use the supplied params to create a new movie.
   def create
     @movie = current_user.movies.build(movie_params)
     @movie.category_id = params[:category_id]

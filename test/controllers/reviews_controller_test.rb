@@ -5,13 +5,8 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     @review = reviews(:one)
   end
 
-  test "should get index" do
-    get reviews_url
-    assert_response :success
-  end
-
   test "should get new review" do
-    get new_review_url
+    get new_movie_review_path(:one)
     assert_response :success
   end
 
@@ -24,9 +19,9 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show review" do
-    get review_url(@review)
+    get review_url(:one)
     assert_response :success
   end
 
-  
+
 end

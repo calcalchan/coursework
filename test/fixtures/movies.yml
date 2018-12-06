@@ -1,15 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  description: MyText
-  movie_length: MyString
-  director: MyString
-  rating: MyString
+  title: Avengers 3
+  description: Iron Man, Thor, The Hulk and the rest of the Avengers unite to battle their most powerful enemy yet -- the evil Thanos.
+  movie_length: 2h 40m
+  director: Anthony Russo, Joe Russo
+  rating: 8.5
+  id: 1
 
 two:
-  title: MyString
-  description: MyText
-  movie_length: MyString
-  director: MyString
-  rating: MyString
+  title: Johnny English Strikes Again
+  description: The new adventure begins when a cyberattack reveals the identities of all active undercover agents in Britain, leaving Johnny English as the secret service's last hope.
+  movie_length: 1h 28m
+  director: David Kerr
+  rating: 6.5
+  id: 2

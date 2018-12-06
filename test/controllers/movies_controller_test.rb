@@ -1,17 +1,25 @@
 require 'test_helper'
 
-class ReviewsControllerTest < ActionDispatch::IntegrationTest
+class MoviesControllerTest < ActionDispatch::IntegrationTest
+
+  def sign_in(user)
+    get new_user_session_path
+  end
+
   setup do
       @movie = movies(:one)
+      @user = users(:one)
+      sign_in(:one)
     end
 
   test "should get home" do
-    get root_url
-    assert_response :sucess
+    get root_path
+    assert_response :success
   end
 
   test "should get new movie" do
-    get new_movie_url
+    sign_in(:one)
+    get new_movie_path
     assert_response :success
   end
 
@@ -24,12 +32,14 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show movie" do
-    get movie_url(@movie)
+    movie = movies(:one)
+    get movie_path(:one)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_movie_url(@movie)
+    movie = movies(:one)
+    get edit_movie_path(:one)
     assert_response :success
   end
 
@@ -40,9 +50,24 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
 
   test "should destroy movie" do
     assert_difference('Movie.count', -1) do
-      delete movie_url(@movie)
+    delete :destroy, id => @movie.id
+    delete movie_url(@movie)
     end
 
-    assert_redirected_to movies_url
+    assert_redirected_to movies_path
   end
+
+  test "should post request contact but no email" do
+    post :request_contact
+      assert_response :redirect
+      assert_not_empty flash [:alert]
+      assert_nil flash [:notice]
+  end
+
+  test "should post request contact" do
+    post :request_contact, name: "Calvin", email: "calvin@gmail.com", message: "hello"
+      assert_response :redirect
+      assert_nil flash [:alert]
+      assert_not_empty flash [:notice]
+    end
 end

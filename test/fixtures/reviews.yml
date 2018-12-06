@@ -2,8 +2,8 @@
 
 one:
   rating: 1
-  comment: MyText
+  comment: Bad Movie
 
 two:
-  rating: 1
-  comment: MyText
+  rating: 7
+  comment: Good Movie

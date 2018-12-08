@@ -16,8 +16,7 @@
     <%= f.text_field :title %>
   </div>
 
-  <br><%= select_tag(:category_id, options_for_select(@categories), :prompt => "Select Category") %>
-
+    <br><%= select_tag(:category_id, options_for_select(@categories), :prompt => "Select Category") %>
 
   <div class="field">
     <br><%= f.label :description %><br>
@@ -47,4 +46,5 @@
   <div class="actions">
   <br><%= f.submit %>
   </div>
+
 <% end %>

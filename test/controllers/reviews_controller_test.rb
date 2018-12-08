@@ -6,21 +6,21 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new review" do
-    get new_movie_review_path(:one)
-    assert_response :success
+    get new_movie_review_path @review
+    assert_redirected_to user_session_url
   end
 
   test "should create review" do
     assert_difference('Review.count') do
-      post reviews_url, params: { review: { comment: @review.comment, rating: @review.rating } }
+      post movie_reviews_url, params: { review: { comment: @review.comment, rating: @review.rating } }
     end
 
     assert_redirected_to review_url(Review.last)
   end
 
   test "should show review" do
-    get review_url(:one)
-    assert_response :success
+    get movie_path
+    assert_redirected_to user_session_url
   end
 
 

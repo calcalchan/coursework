@@ -5,9 +5,17 @@ class UserTest < ActiveSupport::TestCase
   #   assert true
   # end
 
-  test "user sign in" do
+  test "invalid user" do
     user = User.new
-    user = users(:one)
+    user.save
+    refute user.valid?
+  end
 
+  test "save valid user" do
+    user= User.new
+    user.email ="calvin@gmail.com"
+    user.password = "123456"
+    user.save
+    assert user.valid?
   end
 end

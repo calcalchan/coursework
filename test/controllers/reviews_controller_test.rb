@@ -1,13 +1,18 @@
 require 'test_helper'
 
-class ReviewsControllerTest < ActionDispatch::IntegrationTest
+class ReviewsControllerTest < ActionController::TestCase
+    include Devise::TestHelpers
+
   setup do
     @review = reviews(:one)
+    @movie = movies(:one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get new review" do
-    get new_movie_review_path @review
-    assert_redirected_to user_session_url
+    get :new
+    assert_respnse :success
   end
 
   test "should create review" do

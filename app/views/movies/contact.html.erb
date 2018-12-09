@@ -2,9 +2,9 @@
 
 <%= t('request_contact.home')%><br>
 
-<%= form_tag("request_contact", method: "post") do %>
+<%= form_tag("request_contact", method: 'post') do %>
   <br><%= label_tag(:name, t('name')) %><br>
-  <%= text_field_tag(:name, t('enter_name')) %><br>
+  <%= text_field_tag :name, t('enter_name') %><br>
 
   <br><%= label_tag(:email, t('email')) %><br>
   <%= text_field_tag(:email, t('enter_email')) %><br>

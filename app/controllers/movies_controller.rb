@@ -36,7 +36,7 @@ class MoviesController < ApplicationController
 
   def new
     @movie = current_user.movies.build
-    @categories = Category.order('name ASC').all.map{ |c| [c.name, c.id]}
+    @categories = Category.order('name ASC').all.map{ |a| [a.name, a.id]}
   end
 
 
@@ -49,6 +49,7 @@ class MoviesController < ApplicationController
   def create
     @movie = current_user.movies.build(movie_params)
     @movie.category_id = params[:category_id]
+    @categories = Category.order('name ASC').all.map{ |c| [c.name, c.id]}
 
     respond_to do |format|
 

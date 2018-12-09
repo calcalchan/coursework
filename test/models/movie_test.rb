@@ -4,6 +4,11 @@ class MovieTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
+  setup do
+    @user =users(:one)
+    @category =categories(:one)
+    @review =reviews(:one)
+  end
 
   #Testing if the movie is created with valid params passed through
   test "should save movie" do
@@ -13,6 +18,8 @@ class MovieTest < ActiveSupport::TestCase
     movie.rating = 7
     movie.director = "Testing director"
     movie.movie_length = "Testing length"
+    movie.user = @user
+    movie.category = @category
     movie.save
     assert movie.valid?
   end

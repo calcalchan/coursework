@@ -1,48 +1,44 @@
 require 'test_helper'
 
-class MoviesControllerTest < ActionDispatch::IntegrationTest
-
-  #Method to let user sign up and sign in
-  def sign_in(user)
-    get new_user_session_path
-
-  end
+class MoviesControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
 
   setup do
       @movie = movies(:one)
       @user = users(:one)
-      sign_in(:one)
+      sign_in @user
     end
 
   #Test getting the home page
   test "should get home" do
-    get root_path
+    get :index
     assert_response :success
   end
 
   test "should get new movie" do
-    get new_movie_path
-    assert_redirected_to user_session_url
+    get :new
+    assert_response :success
   end
 
   #Test if the movie is created with the params and is redirected to the movie page just created
   test "should create movie" do
     assert_difference('Movie.count') do
-      post movies_path @movie
+      post :create, movie: {description: @movie.description, director: @movie.director, movie_length: @movie.movie_length, rating: @movie.rating, title: @movie.title }
     end
 
     assert_redirected_to movie_path(Movie.last)
   end
 
   test "should show movie" do
-    get movie_path @movie
+    get movie_url(@movie)
     assert_response :success
   end
 
   #
   test "should get edit" do
-    get edit_movie_path @movie
-    assert_redirected_to user_session_url
+    get movie_url(@movie)
+    get edit_movie_url(@movie)
+    assert_response :success
   end
 
   test "should update movie" do
@@ -59,20 +55,26 @@ class MoviesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to movies_path
   end
 
+  test "should get contact page" do
+    get :contact
+    assert_response :success
+  end
+
   #Test whether a notice will be flashed when user try to send email without inputting the email
   test "should post request contact but no email" do
     post :request_contact
-      assert_response :redirect
-      assert_not_empty flash [:alert]
-      assert_nil flash [:notice]
+    assert_nil flash["You must enter an valid email address."]
+    assert_response :redirect
+
   end
 
   #Test whether a valid email will be sent with notice
   test "should post request contact" do
-    post :request_contact, name: "Calvin", email: "calvin@gmail.com", message: "hello"
+    post :request_contact, params: {
+    name: "Calvin", email: "calvin@gmail.com", message: "hello"}
+      assert_not_nil flash[:notice]
       assert_response :redirect
-      assert_nil flash [:alert]
-      assert_not_empty flash [:notice]
+
     end
 
 

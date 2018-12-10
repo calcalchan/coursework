@@ -1,16 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  id: 980190962
+  id: 1
   user: one
   title: Avengers 3
   description: Iron Man, Thor, The Hulk and the rest of the Avengers unite to battle their most powerful enemy yet -- the evil Thanos.
   movie_length: 2h 40m
   director: Anthony Russo, Joe Russo
   rating: 8.5
-
-
-
 
 two:
   user: two
@@ -19,3 +16,11 @@ two:
   movie_length: 1h 28m
   director: David Kerr
   rating: 6.5
+
+three:
+  user: three
+  title: testing
+  description: testing
+  movie_length: testing
+  director: testing
+  rating: 7

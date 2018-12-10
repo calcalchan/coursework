@@ -23,20 +23,19 @@ class MoviesControllerTest < ActionController::TestCase
   #Test if the movie is created with the params and is redirected to the movie page just created
   test "should create movie" do
     assert_difference('Movie.count') do
-      post :create, movie: {description: @movie.description, director: @movie.director, movie_length: @movie.movie_length, rating: @movie.rating, title: @movie.title }
+      post :create, params: {movie: {description: @movie.description, director: @movie.director, movie_length: @movie.movie_length, rating: @movie.rating, title: @movie.title }}
     end
 
     assert_redirected_to movie_path(Movie.last)
   end
 
   test "should show movie" do
-    get movie_url(@movie)
+    get movie_url, {id: @movie.id}
     assert_response :success
   end
 
   #
   test "should get edit" do
-    get movie_url(@movie)
     get edit_movie_url(@movie)
     assert_response :success
   end
@@ -49,7 +48,7 @@ class MoviesControllerTest < ActionController::TestCase
 
   test "should destroy movie" do
     assert_difference('Movie.count', -1) do
-    delete movie_url(@movie)
+    delete :destroy
     end
 
     assert_redirected_to movies_path

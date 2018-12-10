@@ -48,4 +48,11 @@ class MoviesTest < ApplicationSystemTestCase
 
     assert_text "Movie was successfully destroyed"
   end
+
+  test "Choosing category" do
+    visit movies_url
+    click_on "Categories"
+    click_on "Action"
+    assert_text "Action"
+  end
 end

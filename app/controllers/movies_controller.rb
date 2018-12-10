@@ -24,7 +24,6 @@ class MoviesController < ApplicationController
   #display 0 for the average.
   def show
     @reviews = Review.where(movie_id: @movie.id).order("created_at DESC")
-
     if @reviews.blank?
       @avg_review = 0
     else

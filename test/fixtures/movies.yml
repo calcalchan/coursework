@@ -8,6 +8,7 @@ one:
   movie_length: 2h 40m
   director: Anthony Russo, Joe Russo
   rating: 8.5
+  category_id: 3
 
 two:
   user: two

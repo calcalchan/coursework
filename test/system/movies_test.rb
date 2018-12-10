@@ -13,7 +13,7 @@ class MoviesTest < ApplicationSystemTestCase
   test "creating a Movie" do
     visit movies_url
     click_on "New Movie"
-
+    assert_text ""
     fill_in "Description", with: @movie.description
     fill_in "Director", with: @movie.director
     fill_in "Movie Length", with: @movie.movie_length

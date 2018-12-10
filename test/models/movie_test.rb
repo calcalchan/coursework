@@ -16,10 +16,12 @@ class MovieTest < ActiveSupport::TestCase
     movie.title = "Testing 1"
     movie.description = "Testing description 1"
     movie.rating = 7
+    movie.category_id = 2
+    movie.image = ""
     movie.director = "Testing director"
     movie.movie_length = "Testing length"
     movie.user = @user
-    movie.reviews = @review.each.all
+    movie.reviews = @review
     movie.category = @category
     movie.save
     assert movie.valid?

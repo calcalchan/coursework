@@ -118,6 +118,7 @@ class MoviesController < ApplicationController
         flash[:alert] = I18n.t('request_contact.no_email')
 
       else
+      
         flash[:notice] = I18n.t('request_contact.email_sent')
 
     end

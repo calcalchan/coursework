@@ -1,12 +1,12 @@
 require 'test_helper'
 
 class MoviesControllerTest < ActionDispatch::IntegrationTest
-include Devise::Test::IntegrationHelpers
+    include Devise::Test::IntegrationHelpers
 
+  #Setup for testing
   setup do
       @movie = movies(:one)
       @user = users(:one)
-      @category = categories(:one)
       sign_in @user
     end
 
@@ -16,6 +16,7 @@ include Devise::Test::IntegrationHelpers
     assert_response :success
   end
 
+  #Test getting the new movie page
   test "should get new movie" do
     get new_movie_path
     assert_response :success
@@ -30,32 +31,36 @@ include Devise::Test::IntegrationHelpers
     assert_redirected_to movie_path(Movie.last)
   end
 
+  #Test the show movie page
   test "should show movie" do
     get movie_url(@movie)
-    get movie_url(@category)
+
     assert_response :success
   end
 
-
+  #Test editing a movie
   test "should get edit" do
     get edit_movie_url(@movie)
     assert_response :success
   end
 
+  #Test updating a movie
   test "should update movie" do
-    patch movie_url(@movie), params: { movie: { description: @movie.description, director: @movie.director, movie_length: @movie.movie_length, rating: @movie.rating, title: @movie.title } }
+    patch movie_url(@movie), params: { movie: { category_id: @movie.category_id, description: @movie.description, director: @movie.director, movie_length: @movie.movie_length, rating: @movie.rating, title: @movie.title } }
     assert_redirected_to movie_url(@movie)
 
   end
 
+  #Testing deleting a movie
   test "should destroy movie" do
     assert_difference('Movie.count', -1) do
     delete movie_url(@movie)
     end
 
-    assert_redirected_to movies_path
+    assert_redirected_to root_path
   end
 
+  #Test getting the contact page
   test "should get contact page" do
     get contact_url
     assert_response :success

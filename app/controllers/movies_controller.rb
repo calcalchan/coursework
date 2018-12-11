@@ -2,20 +2,19 @@ class MoviesController < ApplicationController
   #Actions that are done before other actions
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
   #Authenticiate whether the user is valid or not
-  before_action :authenticate_user!, except: [:index, :show, :request_contact]
+  before_action :authenticate_user!, except: [:index, :show]
+  skip_before_action :verify_authenticity_token
 
   #For the index page, if the page for the specific category is
   #empty then it will just display all the movies that are created in
   #descending order(newest to oldest).
   def index
-
     if params[:category].blank?
       @movies = Movie.all.order("created_at DESC")
     else
       @category_id = Category.find_by(name: params[:category]).id
       @movies = Movie.where(:category_id => @category_id).order("created_at DESC")
     end
-
   end
 
   #For the show page, it will display all the reviews that are created in
@@ -29,16 +28,15 @@ class MoviesController < ApplicationController
     else
       @avg_review = @reviews.average(:rating).round(2)
     end
-
   end
 
-
+  #A method to let user create a movie object
   def new
     @movie = current_user.movies.build
     @categories = Category.order('name ASC').all.map{ |a| [a.name, a.id]}
   end
 
-
+  #A method to let users to edit
   def edit
     @categories = Category.order('name ASC').all.map{ |c| [c.name, c.id]}
   end
@@ -51,7 +49,6 @@ class MoviesController < ApplicationController
     @categories = Category.order('name ASC').all.map{ |c| [c.name, c.id]}
 
     respond_to do |format|
-
       #If the movie saves, it shows the notice and redirect to the movie page.
       if @movie.save
         format.html { redirect_to @movie, notice: t('movie.create') }
@@ -61,19 +58,19 @@ class MoviesController < ApplicationController
         format.html { render :new }
         format.json { render json: @movie.errors, status: :unprocessable_entity }
       end
-
     end
   end
 
   #A method to update a movie
   def update
     @movie.category_id = params[:category_id]
+
     respond_to do |format|
       #If the movie params are all filled in and valid, it redirects to the movie page and shows the notice
       if @movie.update(movie_params)
         format.html { redirect_to @movie, notice: t('movie.update') }
         format.json { render :show, status: :ok, location: @movie }
-      #If it doesnt update, then refresher the edit movie page
+      #If it doesnt update, then refresh the edit movie page
       else
         format.html { render :edit }
         format.json { render json: @movie.errors, status: :unprocessable_entity }
@@ -116,24 +113,23 @@ class MoviesController < ApplicationController
 
       if email.blank?
         flash[:alert] = I18n.t('request_contact.no_email')
-
       else
-      
         flash[:notice] = I18n.t('request_contact.email_sent')
-
-    end
+      end
       redirect_to movies_path
   end
 
+  def contact
+  end
 
   private
 
-    def set_movie
-      @movie = Movie.find(params[:id])
-    end
+  def set_movie
+    @movie = Movie.find(params[:id])
+  end
 
-    #Using strong params
-    def movie_params
-      params.require(:movie).permit(:title, :category_id, :description, :movie_length, :director, :rating, :image)
-    end
+  #Using strong params
+  def movie_params
+    params.require(:movie).permit(:title, :category_id, :description, :movie_length, :director, :rating, :image)
+  end
 end

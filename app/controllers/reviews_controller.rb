@@ -1,9 +1,11 @@
 class ReviewsController < ApplicationController
+  #Actions that are done before other actions
   before_action :set_review, only: [:show, :edit, :update, :destroy]
+  #Authenticiate whether the user is valid or not
   before_action :authenticate_user!
   before_action :set_movie
 
-
+  #A metho to just create a review object
   def new
     @review = Review.new
   end
@@ -58,16 +60,16 @@ class ReviewsController < ApplicationController
 
   private
 
-    def set_review
-      @review = Review.find(params[:id])
-    end
+  def set_review
+    @review = Review.find(params[:id])
+  end
 
-    def set_movie
-      @movie = Movie.find(params[:movie_id])
-    end
+  def set_movie
+    @movie = Movie.find(params[:movie_id])
+  end
 
-    #Using strong params for the review
-    def review_params
-      params.require(:review).permit(:rating, :comment)
-    end
+  #Using strong params for the review
+  def review_params
+    params.require(:review).permit(:rating, :comment)
+  end
 end

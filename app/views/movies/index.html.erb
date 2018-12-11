@@ -1,3 +1,4 @@
+<%# Check if the user is signed in or not, if it is not it has a link for the user to sign up%>
 <% if !user_signed_in? %>
   <div class="jumbotron">
     <h1>2018 BEST MOVIES reviews!!</h1><br>
@@ -5,20 +6,20 @@
   </div>
 <% end %>
 
-
+<%# It checks if the movie display is 0, if it is 0 then it will display the message.%>
 <% if @movies.count == 0 %>
-
   <h1> <%= t('movie.category_empty')%></h1>
 
+<%# Else it will display all the movies according to the category selected%>
 <% else %>
 <div class="row">
   <h2 class="current-category"><%= params[:category] %></h2>
-  <% @movies.each do |movie| %>
-    <div class="col-sm-6 col-md-3">
-      <div class="thumbnail">
-        <%= link_to (image_tag movie.image.url(:medium), class: 'image'), movie %>
+    <% @movies.each do |movie| %>
+      <div class="col-sm-6 col-md-3">
+        <div class="thumbnail">
+          <%= link_to (image_tag movie.image.url(:medium), class: 'image'), movie %>
+        </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
   <% end %>
 </div>

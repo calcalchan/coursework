@@ -4,12 +4,12 @@
 
 <%= form_tag("request_contact", method: 'post') do %>
   <br><%= label_tag(:name, t('name')) %><br>
-  <%= text_field_tag :name, t('enter_name') %><br>
+  <%= text_field_tag(:name, "") %><br>
 
   <br><%= label_tag(:email, t('email')) %><br>
-  <%= text_field_tag(:email, t('enter_email')) %><br>
+  <%= text_field_tag(:email, "") %><br>
 
   <br><%= label_tag(:message, t('message')) %><br>
-  <%= text_area_tag(:message, t('enter_message'),:cols => "50", :rows => "5")%><br>
+  <%= text_area_tag(:message, "", :cols => "50", :rows => "5")%><br>
   <br><%= submit_tag("Submit") %><br>
 <% end %>

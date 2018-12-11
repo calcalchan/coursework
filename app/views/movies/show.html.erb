@@ -3,8 +3,8 @@
      <div class="row">
        <div class="col-md-4">
          <%= image_tag @movie.image.url(:medium) %>
-         <p><%= t('review.average')%> <%= @avg_review %></p>
-         <em><%= "#{@reviews.length} reviews" %></em>
+          <p><%= t('review.average')%> <%= @avg_review %></p>
+          <em><%= "#{@reviews.length} reviews" %></em>
          <div class="table-responsive">
           <table class="table">
             <tbody>
@@ -17,11 +17,6 @@
               <tr>
                 <td><strong><%= t('movie.description')%></strong></td>
                 <td><%= @movie.description %></td>
-              </tr>
-
-              <tr>
-                <td><strong><%= t('movie.category')%></strong></td>
-                <td><%= @movie.category.name %></td>
               </tr>
 
               <tr>
@@ -40,27 +35,29 @@
               </tr>
 
             </tbody>
-
           </table>
-          <%= link_to "Write a Review", new_movie_review_path(@movie), class: "btn btn-primary" %>
 
+          <%= link_to "Write a Review", new_movie_review_path(@movie), class: "btn btn-primary" %>
         </div>
       </div>
+
       <div class="col-md-7 col-md-offset-1">
         <h1 class="review_title"><%= @movie.title %></h1>
-        <p><%= @movie.description %></p>
+          <p><%= @movie.description %></p>
+          <%# If theres is no review, then it will provide a link for the user to create one.%>
+          <% if @reviews.blank? %>
+            <h3><%= t('review.review_empty')%></h3>
+            <%= link_to "Write Review", new_movie_review_path(@movie), class: "btn btn-danger" %>
 
-        <% if @reviews.blank? %>
-        <h3><%= t('review.review_empty')%></h3>
-        <%= link_to "Write Review", new_movie_review_path(@movie), class: "btn btn-danger" %>
-        <% else %>
-          <% @reviews.each do |review| %>
+          <%# Else it will display all the reviews.%>
+          <% else %>
+            <% @reviews.each do |review| %>
             <div class="reviews">
               <p><%= review.rating%>/10</p>
               <p><%= review.comment %></p>
             </div>
-        <% end %>
-        <% end %>
+            <% end %>
+          <% end %>
       </div>
     </div>
   </div>
@@ -68,13 +65,10 @@
 
 <%= link_to 'Back', movies_path %> |
 
-
 <% if user_signed_in?%>
-
+  <%# If the user is signed in and the movie user id is equals to the current user is, then the user will be able to edit or delete the movie. %>
   <% if @movie.user_id == current_user.id %>
     <%= link_to 'Edit', edit_movie_path(@movie) %> |
     <%= link_to 'Delete', movie_path(@movie), method: :delete, data: { confirm: t('confirm')} %>
   <% end %>
-
-
 <% end %>

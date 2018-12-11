@@ -3,8 +3,6 @@
 one:
   rating: 1
   comment: Bad Movie
-  movie_id: 1
-  user_id: 3
 
 
 two:

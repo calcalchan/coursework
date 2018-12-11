@@ -22,7 +22,6 @@ class MovieTest < ActiveSupport::TestCase
     movie.movie_length = "Testing length"
     movie.user = @user
     movie.reviews = @review
-    movie.category = @category
     movie.save
     assert movie.valid?
   end

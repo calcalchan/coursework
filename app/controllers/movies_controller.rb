@@ -19,14 +19,14 @@ class MoviesController < ApplicationController
 
   #For the show page, it will display all the reviews that are created in
   #descending order(newest to oldest). Also it will calculate the average
-  #rating for the review to 2 d.p. If there isn't any review, then it will just
+  #rating for the review to 1 d.p. If there isn't any review, then it will just
   #display 0 for the average.
   def show
     @reviews = Review.where(movie_id: @movie.id).order("created_at DESC")
     if @reviews.blank?
       @avg_review = 0
     else
-      @avg_review = @reviews.average(:rating).round(2)
+      @avg_review = @reviews.average(:rating).round(1)
     end
   end
 
@@ -63,6 +63,7 @@ class MoviesController < ApplicationController
 
   #A method to update a movie
   def update
+    @categories = Category.order('name ASC').all.map{ |c| [c.name, c.id]}
     @movie.category_id = params[:category_id]
 
     respond_to do |format|
